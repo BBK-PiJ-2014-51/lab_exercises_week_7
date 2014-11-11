@@ -8,7 +8,12 @@ public class ex10{
 	
 	
 	System.out.print("pre sorted list:");
-	ListUtilities linkedList = ListUtilities.arrayToLinkedList(testArray);
+	
+	ListUtilities linkedList = new ListUtilities();
+	linkedList = linkedList.addObject(new ListUtilities(99));
+	for (int i = 2; i < testArray.length; i++){
+		linkedList = linkedList.addObject(new ListUtilities(i * 3));
+	}
 	linkedList.listObjectsFromHead();
 	linkedList.addObject(new ListUtilities(19));
 	linkedList.addObject(new ListUtilities(1));

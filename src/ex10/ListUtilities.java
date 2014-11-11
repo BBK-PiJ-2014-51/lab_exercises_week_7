@@ -17,16 +17,17 @@ public class ListUtilities {
 		nextObject = null;
 	}
 	
-	public void addObject(ListUtilities newObject) {
+	public ListUtilities addObject(ListUtilities newObject) {
 		if (ListUtilities.head != null)listObjectsFromHead();
 		if (ListUtilities.head == null){
 			ListUtilities.head = newObject;
-			this.nextObject = newObject;
+			//this.nextObject = newObject;
 			ListUtilities.count = 1;
 		}  else if(newObject.value < ListUtilities.head.value){
 			newObject.nextObject = ListUtilities.head;
 			ListUtilities.head = newObject;
-			this.nextObject = newObject;
+			
+			//this.nextObject = newObject;
 		} else if (nextObject == null) {
 			nextObject = newObject;
 			ListUtilities.count++;
@@ -40,6 +41,7 @@ public class ListUtilities {
 					nextObject.addObject(newObject);
 			}
 		}
+		return head;
 	}
 	
 	public void listObjectsFromHead(){
