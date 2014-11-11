@@ -1,0 +1,21 @@
+package ex10;
+public class ex10{
+	public static void main(String[] args) {
+	int[] testArray = new int[15];
+	for (int i = 0; i < testArray.length; i++){
+		testArray[i] = (i + 1) * 3;
+	}
+	
+	
+	System.out.print("pre sorted list:");
+	ListUtilities linkedList = ListUtilities.arrayToLinkedList(testArray);
+	linkedList.listObjectsFromHead();
+	linkedList.addObject(new ListUtilities(19));
+	linkedList.addObject(new ListUtilities(1));
+	linkedList.addObject(new ListUtilities(190));
+	linkedList.addObject(new ListUtilities(18));
+	System.out.println("list after adding 19, 1, 190, 18:");
+	linkedList.listObjectsFromHead();
+	}
+	
+}
