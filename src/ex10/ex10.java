@@ -6,13 +6,11 @@ public class ex10{
 		testArray[i] = (i + 1) * 3;
 	}
 	
-	
 	System.out.print("pre sorted list:");
-	
 	ListUtilities linkedList = new ListUtilities();
-	linkedList = linkedList.addObject(new ListUtilities(99));
+	linkedList.addObject(new ListUtilities(99));
 	for (int i = 2; i < testArray.length; i++){
-		linkedList = linkedList.addObject(new ListUtilities(i * 3));
+		linkedList.addObject(new ListUtilities(i * 3));
 	}
 	linkedList.listObjectsFromHead();
 	linkedList.addObject(new ListUtilities(19));

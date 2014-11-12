@@ -7,9 +7,9 @@ public class ListUtilities {
 	public static int count;
 	
 	public ListUtilities(){
-		value = 0;
+		value = -1;
 		nextObject = null;
-		
+		ListUtilities.head = this;
 	}
 	
 	public ListUtilities(int value){
@@ -18,17 +18,8 @@ public class ListUtilities {
 	}
 	
 	public ListUtilities addObject(ListUtilities newObject) {
-		if (ListUtilities.head != null)listObjectsFromHead();
-		if (ListUtilities.head == null){
-			ListUtilities.head = newObject;
-			//this.nextObject = newObject;
-			ListUtilities.count = 1;
-		}  else if(newObject.value < ListUtilities.head.value){
-			newObject.nextObject = ListUtilities.head;
-			ListUtilities.head = newObject;
-			
-			//this.nextObject = newObject;
-		} else if (nextObject == null) {
+		//if (ListUtilities.head != null)listObjectsFromHead(); 
+		if (nextObject == null) {
 			nextObject = newObject;
 			ListUtilities.count++;
 			
@@ -36,17 +27,17 @@ public class ListUtilities {
 			if( nextObject.value >= newObject.value){
 				newObject.nextObject = nextObject;
 				nextObject = newObject;
-			
+				ListUtilities.count++;
 			} else {
 					nextObject.addObject(newObject);
 			}
-		}
+		}	
 		return head;
 	}
 	
 	public void listObjectsFromHead(){
-		if (ListUtilities.head != null){
-			ListUtilities.head.listNext();
+		if (ListUtilities.head.nextObject != null){
+			ListUtilities.head.nextObject.listNext();
 		} else {
 			System.out.println("No elemenets in list");
 		}
