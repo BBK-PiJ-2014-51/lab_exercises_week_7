@@ -6,6 +6,7 @@ public class ListUtilities{
 	private static ListUtilities head;
 	public static ListUtilities tail;
 	public int id;
+	private double lastExecTime;
 	private static int count;
 	
 	public ListUtilities(int id){
@@ -19,7 +20,9 @@ public class ListUtilities{
 		count = 0;
 	}
 	
-
+	public double getLastExecTime(){
+		return lastExecTime;
+	}
 	
 	public void addObject(ListUtilities next){
 		if (ListUtilities.head.nextObject == null){ 
@@ -84,39 +87,26 @@ public class ListUtilities{
 	}
 	
 	public static ListUtilities bubbleSort(ListUtilities list){
-		for (int i = 0; i < count; i++){
-			System.out.println("calling bubbile sort for element " + i);
-			list = list.recursiveComparision(list);
-			list.listObjectsFromHead();
+		double startTime = System.currentTimeMillis();
+		boolean isSorted = false;
+		while(!isSorted){
+			isSorted = true;
+			while (list.nextObject != null){
+				if (list.id > list.nextObject.id){
+					int tempVal = list.nextObject.id;
+					list.nextObject.id = list.id;
+					list.id = tempVal;
+					isSorted = false;
+				}
+				list = list.nextObject;
+			}
+			list = head;
 		}
+		
+		list.lastExecTime = System.currentTimeMillis() - startTime;
 		return list;
 	}
 	
-	private ListUtilities recursiveComparision(ListUtilities list){
-		System.out.println("Recursive call on list");
-		if (list.nextObject == null) {
-			System.out.println("Returning head");
-			return head;
-		} else {
-			System.out.println("Comparing " + list.id + " with " + list.nextObject.id);
-			if (list.id > list.nextObject.id && list != head){
-				if (lastObject == null){
-					System.out.println("last object null, must be front of list");
-					head.nextObject = list.nextObject;
-					head.nextObject.lastObject = null;
-					list.lastObject = head.nextObject;
-					if (list.nextObject.nextObject != null)list.nextObject = list.nextObject.nextObject;
-					else list.nextObject =  null;
-				} else {
-					list.lastObject.nextObject = list.nextObject;
-					list.nextObject.lastObject = list.lastObject;
-					list.lastObject = list.nextObject;
-					list.nextObject = list.nextObject.nextObject;
-					list.lastObject.nextObject = list;
-				}
-			}
-			return (list.nextObject == null) ? head : recursiveComparision(list.nextObject);
-		}
-	}
+	
 	
 }
