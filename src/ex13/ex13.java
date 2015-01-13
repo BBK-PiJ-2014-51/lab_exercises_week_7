@@ -3,7 +3,7 @@ public class ex13{
 	int[] testArray;
 	public static void main(String[] args) {
 		ex13 exercise = new ex13();
-		for (int i = 500; i < 50000; i *= 2){
+		for (int i = 500; i < 501; i *= 2){
 			exercise.test(i);
 		}
 	}
@@ -24,7 +24,7 @@ public class ex13{
 		
 		System.out.print("quick sorted list:");
 		ListUtilities quicksort = ListUtilities.quickSort(ListUtilities.arrayToLinkedList(testArray));
-		System.out.println(testArray.length + " items sorted in " + quicksort.getLastExecTime() + "ms.");
+		//System.out.println(testArray.length + " items sorted in " + quicksort.getLastExecTime() + "ms.");
 	}
 	
 	private void test(int length){
