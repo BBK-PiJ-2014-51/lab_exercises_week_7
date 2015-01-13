@@ -140,18 +140,15 @@ public class ListUtilities{
 	}
 
 	public static ListUtilities quickSort(ListUtilities arrayToLinkedList) {		
-		quickSortRecursive(arrayToLinkedList);
-		return null;
+		return quickSortRecursive(arrayToLinkedList);
 	}
 	
-	private static void quickSortRecursive(ListUtilities list){
-		//select first element as pivot
+	private static ListUtilities quickSortRecursive(ListUtilities list){
+		double startTime = System.currentTimeMillis();
 		ListUtilities pivot = head.nextObject;
 		ListUtilities currentNode = pivot;
-		head.listObjectsFromHead();
 		while (currentNode != null){
 			if (currentNode.id < pivot.id){
-				 System.out.println("Moving num " + currentNode.id);
 				 ListUtilities newNode= new ListUtilities(currentNode.id);
 				 newNode.lastObject = pivot.lastObject;
 				 newNode.nextObject = pivot;
@@ -162,12 +159,11 @@ public class ListUtilities{
 			}
 			currentNode = currentNode.nextObject;
 		}
-		head.listObjectsFromHead();
-		System.out.println("Partition completed. Now recursively sort two remaining lists");
+	
 		quickSortDownwards(pivot);
-		System.out.println("Downward sort complete:");		
-		head.listObjectsFromHead();
 		quickSortUpwards(pivot);
+		list.lastExecTime = System.currentTimeMillis() - startTime;
+		return head;
 	}
 	
 	private static void quickSortDownwards(ListUtilities list){
@@ -190,7 +186,22 @@ public class ListUtilities{
 	}
 	
 	private static void quickSortUpwards(ListUtilities list){
-		
+		if (list.nextObject == null) return;
+		ListUtilities pivot = list.nextObject;
+		ListUtilities currentNode = pivot;
+		while (currentNode != null){
+			if (currentNode.id < pivot.id){
+				 ListUtilities newNode= new ListUtilities(currentNode.id);
+				 newNode.lastObject = pivot.lastObject;
+				 newNode.nextObject = pivot;
+				 if (pivot.nextObject != null) pivot.lastObject.nextObject = newNode;
+				 pivot.lastObject = newNode;
+				 if (currentNode.lastObject != null) currentNode.lastObject.nextObject = currentNode.nextObject;
+				 if (currentNode.nextObject != null) currentNode.nextObject.lastObject = currentNode.lastObject;
+			}
+			currentNode = currentNode.nextObject;
+		}
+		if (list.nextObject != null) quickSortUpwards(list.nextObject);
 	}
 	
 }
