@@ -155,16 +155,42 @@ public class ListUtilities{
 				 ListUtilities newNode= new ListUtilities(currentNode.id);
 				 newNode.lastObject = pivot.lastObject;
 				 newNode.nextObject = pivot;
-				 pivot.lastObject.nextObject = newNode;
+				 if (pivot.nextObject != null) pivot.lastObject.nextObject = newNode;
 				 pivot.lastObject = newNode;
-				 currentNode.lastObject.nextObject = currentNode.nextObject;
-				 currentNode.nextObject.lastObject = currentNode.lastObject;
+				 if (currentNode.lastObject != null) currentNode.lastObject.nextObject = currentNode.nextObject;
+				 if (currentNode.nextObject != null) currentNode.nextObject.lastObject = currentNode.lastObject;
 			}
 			currentNode = currentNode.nextObject;
 		}
 		head.listObjectsFromHead();
 		System.out.println("Partition completed. Now recursively sort two remaining lists");
+		quickSortDownwards(pivot);
+		System.out.println("Downward sort complete:");		
+		head.listObjectsFromHead();
+		quickSortUpwards(pivot);
 	}
 	
+	private static void quickSortDownwards(ListUtilities list){
+		if (list.lastObject == null) return;
+		ListUtilities pivot = list.lastObject;
+		ListUtilities currentNode = pivot;
+		while (currentNode != null){
+			if (currentNode.id > pivot.id){
+				ListUtilities newNode = new ListUtilities(currentNode.id);
+				newNode.lastObject = pivot;
+				newNode.nextObject = pivot.nextObject;
+				if (pivot.nextObject != null)pivot.nextObject.lastObject = newNode;
+				pivot.nextObject = newNode;
+				if (currentNode.lastObject != null) currentNode.lastObject.nextObject = currentNode.nextObject;
+				if (currentNode.nextObject != null) currentNode.nextObject.lastObject = currentNode.lastObject;
+			}
+			currentNode = currentNode.lastObject;
+		}
+		if (list.lastObject != null) quickSortDownwards(list.lastObject);
+	}
+	
+	private static void quickSortUpwards(ListUtilities list){
+		
+	}
 	
 }
